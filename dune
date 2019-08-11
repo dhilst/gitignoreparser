@@ -1,0 +1,5 @@
+(library
+  (name gitignoreparser)
+  (inline_tests)
+  (libraries core lwt lwt.unix re)
+  (preprocess (pps lwt_ppx ppx_inline_test ppx_deriving.std ppx_regexp)))
