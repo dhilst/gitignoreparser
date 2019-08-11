@@ -2,12 +2,14 @@
 
 Provide functions to parse .gitignore lines and use
 
+Some examples from the tests
 ``` ocaml
-let open Gitignoreparser in
-let p1 = compile "foo/*" in
-let p2 = compile "!foo/bar" in
-let () = assert matches p1 "foo/bar" in
-let () = assert not (matches p2 "foo/bar") in
-()
+let%test _ = matches (compile "foo/*") "foo/bar"
+let%test _ = matches (compile "foo/*/bar") "foo/xxx/bar"
+let%test _ = matches (compile "foo/**/bar") "foo/xxx/yyy/bar"
+let%test _ = matches (compile "*.sw[op]") "foo.swo"
+let%test _ = matches (compile "~*") "~foo"
+let%test _ = not @@ matches (compile "!foo/*/bar") "foo/xxx/bar"
+let%test _ = not @@ matches (compile "foo/*/bar") "foo/xxx/yyy/bar"
 ```
 
